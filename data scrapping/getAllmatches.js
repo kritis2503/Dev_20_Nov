@@ -10,10 +10,12 @@ function getAllMatches(link)
 function cb(error,response,data)
 {
     if(error==null && response.statusCode==200)
-        parseData(data);
-    if(response.statusCode==404)
-        console.log("Page Not Found!!");
-    else console.log(error);
+    parseData(data);
+    //console.log("Kriti");
+else if(response.statusCode==404)
+    console.log("Page Not Found");
+else    console.log(error+" kriti");   
+   
 }
 
 function parseData(html)
@@ -25,7 +27,7 @@ function parseData(html)
     {
         let link=ch(allAtags[i]).attr("href");
         let completeLink="https://www.espncricinfo.com"+link;
-        getAllMatches(completeLink);
+        getMatch(completeLink);
     }
 }
 module.exports.getAllMatches = getAllMatches;
