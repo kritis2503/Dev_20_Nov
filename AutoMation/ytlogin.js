@@ -1,4 +1,6 @@
 let puppeteer=require("puppeteer");
+let cheerio=require("cheerio");
+let request=require("request");
 
 let tab;
 let song="Ae dil hai mushkil";
@@ -32,7 +34,7 @@ browserPromise.then(function(browser){
     return c;
 })
 .then(function(){
-    console.log("yayyyyy");
+  console.log("kriti yayyyyyy");
 })
 .catch(function(error){
     console.log(error);
