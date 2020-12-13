@@ -123,6 +123,10 @@ return w;
     let c=tab.click("#logo");
     return c;
 })
+.then(function(){
+    let w=tab.waitForSelector(".gLFyf.gsfi");
+    return w;
+})
 
 .then(function(){
     let s="chandler bing";
@@ -200,6 +204,11 @@ return w;
 .then(function(){
     let c=tab.click("#logo");
     return c;
+})
+.then(function(){
+    let w=tab.waitForSelector(".gLFyf.gsfi");
+    return w;
+    
 })
 
 .then(function(){
