@@ -74,7 +74,8 @@ browerPromise.then(function(brower){
 
     let firstQuesolvePromise=solveQuestion(compeleteLinks[0]);
 
-    for(let i=0;i<compeleteLinks.length;i++){
+    for(let i=1;i<compeleteLinks.length;i++){
+        console.log("first wala");
         let nextQuesSolvepromise=solveQuestion(compeleteLinks[i]);
         return nextQuesSolvepromise;
     }
@@ -147,7 +148,7 @@ function getCode(){
       })
       .then(function(code){
         // console.log(code);
-        gCode = code;
+        gcode = code;
         console.log("code copied");
         resolve();
       })
