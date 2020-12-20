@@ -9,17 +9,17 @@
     <body>
         <div class="menu">menu</div>
         <div class="menu-option">menu option</div>
-        <div class="formula"></div>
+        <div class="formula">formula</div>
         <div class="cells">
-            <%for(let i=0;i<100;i++)>{
-                %> <div class="row">
-                    <%for(let j=0;j<26;j++){%>
+            <%for(let i=0;i<100;i++) {%>
+                <div class="row">
+                    <% for(let j=0;j<26;j++){ %>
                         <div class="cell" contenteditable="true"></div>
                         <%}%>
                 </div>
                 <%}%>
         </div>
-        <div class="sheet"></div>
+        <div class="sheet">sheet</div>
         <script src="./js/script.js"></script>
     </body>
 </html>

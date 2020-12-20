@@ -167,6 +167,11 @@ function pasteCode(){
             return waitandClickPromise;
         })
         .then(function(){
+            let w=gtab.waitForSelector('.custominput', {visible: true});
+            return w;
+        })
+        .then(function(){
+        
             let codeTypedPromise=gtab.type(".custominput",gcode);
             return codeTypedPromise;
         })
@@ -230,6 +235,7 @@ function handlelockBtn(){
 }
 function solveQuestion(quesLink){
     return new Promise(function(resolve,reject){
+        console.log("solve question");
         let gotoQuesPromise=gtab.goto(quesLink);
         gotoQuesPromise.then(function(){
             let waitandClickPromise=waitandClick('div[data-attr2="Editorial"]');
