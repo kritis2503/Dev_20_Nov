@@ -1,10 +1,9 @@
-let id = "gokon21156@dkt1.com";
-let pw = "123456789";
-
+const id = "pamico3332@nic58.com";
+const pw = "12345678";
 
 const puppeteer = require("puppeteer");
 const challenges = require("./challenge");
-//let tab;
+let tab;
 
 // IIFE => Immediately Invoked Function Expressions
 
@@ -50,20 +49,71 @@ const challenges = require("./challenge");
 })();
 
 
-async function addModerators(tab,browser)
+async function addModerators(browser)
 {
-    await tab.waitForSelector('.backbone.block-center' , {visible:true});
-    let aTag= await tab.$$('.backbone.block-center');
-    //console.log(aTag.length);
-    let completeLinks=[];
-    for(let i=0;i<aTag.length;i++)
+    try{
+        await tab.waitForSelector(".backbone.block-center" , {visible:true});
+        let aTag= await tab.$$('.backbone.block-center');
+        //console.log(aTag.length);
+        let completeLinks=[];
+        for(let i=0;i<aTag.length;i++)
+        {
+            let link=await tab.evaluate(function(elem){return elem.getAttribute("href");},aTag[i]);
+            link=`http://www.hackerrank.com${link}`;
+            completeLinks.push(link);
+        }
+        console.log(completeLinks);
+
+        let allModeratorAddPromise=[];
+
+        for(let i=0;i<completeLinks.length;i++){
+            let moderatorAddPromise=addModeratorToASingleQues(completeLinks[i],browser);
+            allModeratorAddPromise.push(moderatorAddPromise);
+        }
+
+        await Promise.all(allModeratorAddPromise);
+        let allLis= await tab.$$('.pagination li');
+        let nextBtn=allLis[allLis.length-2];
+        let isDisabled=await tab.evaluate(function(elem){ return elem.classList.contains("disabled");}, nextBtn);
+        if(!isDisabled)
+        {
+            await Promise.all([rab.waitForNavigation({waitUntil:"networkidle2"}),nextBtn.click()]);
+            await addModerators(browser);
+        }
+        else {
+            return;
+        }
+
+    }   
+    catch (error)
     {
-        let link=await tab.evaluate(function(elem){return elem.getAttribute("href");},aTag[i]);
-        link=`http://www.hackerrank.com${link}`;
-        completeLinks.push(completeLink);
+        console.log(error);   
     }
-    console.log(completeLinks);
 }
+async function confirmModal(){
+    try{
+        await tab.waitForSelector('#confirm-modal',{timeout:5000});
+        await tab.click('#confirmBtn');
+    }
+    catch(error){
+        return;
+    }
+}
+async function addModeratorToASingleQues(link,browser){
+    let newTab=await browser.newPage();
+    await newTab.goto(link);
+    await confirmModal(newTab);
+    await newTab.waitForSelector('li[data-tab="moderators"]',{visible:true});
+    await newTab.click('li[data-tab="moderators"]');
+    await newTab.waitForSelector('#moderator',{visible:true});
+    await newTab.type('#moderator',"Rajma_chawal");
+    await newTab.click('.btn.moderator-save');
+    await newTab.waitForTimeout(3000);
+    await newTab.click('.save-challenge.btn.btn-green');
+    await newTab.waitForTimeout(10000);
+    await newTab.close();
+}
+
 //function addModerators
 // get all links of questions of current page 
 // loop of all links and call
