@@ -1,6 +1,5 @@
-const id="xacodi4805@ahhtee.com";
-const pw="123456789"
-
+let id="gokon21156@dkt1.com";
+let pw="123456789";
 const { fchown } = require("fs");
 const puppeteer=require("puppeteer");
 
@@ -24,20 +23,17 @@ await waitAndClick('#base-card-1-link');
 await waitAndClick('#base-card-1-link');
 await gTab.waitForSelector(".js-track-click.challenge-list-item" , {visible:true})
 let allQues=await gTab.$$(".js-track-click.challenge-list-item");
-let completeLinkPromise=[];
+let completeLinks=[];
 for(let i=0;i<allQues.length;i++) 
 {
-    let linkPromise=gTab.evaluate(function(elem){return elem.getAttribute("href")},allQues[i]);
-    completeLinkPromise.push(linkPromise);
-}
-let pendingPromise= await Promise.all(completeLinkPromise);
-let completeLinks=[];
-for(let i=0;i<pendingPromise.length;i++)
-{
-    let completeLink=`http://www.hackerrank.com${pendingPromise}`
-    completeLinks.push(completeLink);
+    let link= await gTab.evaluate(function(elem){return elem.getAttribute("href")},allQues[i]);
+    completeLinks.push(`http://www.hackerrank.com${link}`);
 }
 console.log(completeLinks);
+for(let i=0 ; i<completeLinks.length ; i++){
+    await solveQuestion(completeLinks[i]);
+}
+
 //await Questions(completeLinks);
 
 // firstQuesSolvePromise.then(){
@@ -49,25 +45,28 @@ catch(error)
     console.log(error);
 }
 })();
-function Questions(completeLinks)
-{
-    let firstQuesSolvePromise = solveQuestion(completeLinks[0]);
+// function Questions(completeLinks)
+// {
+   // let firstQuesSolvePromise = solveQuestion(completeLinks[0]);
 
-    for(let i=1 ; i<completeLinks.length ; i++){
-      firstQuesSolvePromise = firstQuesSolvePromise.then(function(){
-        let nextQuesSolvePromise = solveQuestion(completeLinks[i]);
-        return nextQuesSolvePromise;
-      })
-    }
-    return firstQuesSolvePromise;
-
-   
-}
-
+    // for(let i=1 ; i<completeLinks.length ; i++){
+    //   firstQuesSolvePromise = firstQuesSolvePromise.then(function(){
+        // let nextQuesSolvePromise = solveQuestion(completeLinks[i]);
+        // return nextQuesSolvePromise;
+    //   })
+    // }
+    // return firstQuesSolvePromise;
+// }
+// 
 async function waitAndClick(selector){
     //console.log(selector);
-     await gTab.waitForSelector(selector,{visible:true});
-     await gTab.click(selector);
+    try{
+        await gTab.waitForSelector(selector,{visible:true});
+        await gTab.click(selector);
+    }
+    catch(error){
+        return error;
+    }
 }
 function handleLockBtn(){
     return new Promise(function(resolve , reject){
@@ -142,7 +141,7 @@ async function pasteCode()
 {
     try{
         await gTab.click('div[data-attr2="Problem"]');
-        waitAndClick('.custom-input-checkbox');
+        await waitAndClick('.custom-input-checkbox');
         //await waitForSelector('.custominput',{visible:true});
         await gTab.waitForSelector('.custominput', {visible: true});
         await gTab.type(".custominput" , gCode);
@@ -163,8 +162,8 @@ async function pasteCode()
 async function solveQuestion(QuesLink)
 {
     await gTab.goto(QuesLink);
-    waitAndClick('div[data-attr2="Editorial"]');
+    await waitAndClick('div[data-attr2="Editorial"]');
     await handleLockBtn();
-    getCode();
-    pasteCode();
+    await getCode();
+    await pasteCode();
 }
