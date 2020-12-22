@@ -1,5 +1,5 @@
 const{app, BrowserWindow}=require('electron')
-const ejse=require("ejs-electron")
+const ejs=require("ejs-electron");
 function createWindow () {
     const win = new BrowserWindow({
         width: 800,
