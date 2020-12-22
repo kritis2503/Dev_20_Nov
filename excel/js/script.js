@@ -21,6 +21,7 @@ $(document).ready(function(){
         let cellObject=db[rowId][colId];
         if(value!=cellObject.value){
             cellObject.value=value;
+            console.log("yess");
             updateChildren(cellObject);
         }
     });
@@ -33,16 +34,39 @@ $(document).ready(function(){
             //db update
             let cellObject=db[rowId][colId];
             if(cellObject.formula!=formula){
+                removeFormula(cellObject);
                 let value=solveFormula(formula,cellObject);
-
                 cellObject.value=value;
                 cellObject.formula=formula;
+                updateChildren(cellObject);
                 console.log(db);
                 $(lsc).text(value);
             }
         }
     });
+    function removeFormula(selfCellObject){
+        if(selfCellObject.formula.length==0)
+            return;
+        selfCellObject.formula="";
+        for(let i=selfCellObject.parent.length-1;i>=0;i++){
+            let {rowId,colId}=getRowIdColIdFromAddress(selfCellObject.parent[i]);
+            let parentCellObject=db[rowId][colId];
+            let idx=-1;
+            for(let j=0;j<parentCellObject.children.length;j++)
+            {
+                if(parentCellObject[j]==selfCellObject)
+                {
+                    idx=j;
+                    break;
+                }
+            }
+            parentCellObject.children.pop(idx);
+        }
+        selfCellObject.parent.pop();
+    }
+
     function updateChildren(cellObject){
+        console.log("update children");
         for(let i=0;i<cellObject.children.length;i++){
             let {rowId,colId}=getRowIdColIdFromAddress(cellObject.children[i]);
             let childrenCellObject=db[rowId][colId];
@@ -63,6 +87,7 @@ $(document).ready(function(){
             if((firstCharacter>="A" && firstCharacter<="Z")|| (firstCharacter>="a" && firstCharacter<="z")){
                 let {rowId,colId}=getRowIdColIdFromAddress(comp);
                 let cellObject=db[rowId][colId];
+                selfCellObject.parent.push(cellObject.name);
 
                 if(selfCellObject){
                     cellObject.children.push(selfCellObject.name);
@@ -75,10 +100,11 @@ $(document).ready(function(){
         let value=eval(formula);
         return value;
     }
+    
     //utility functions
     function getRowIdColIdFromAddress(address){
-        let colId=address.charCodeAt(0)<=90? address.charCodeAt(0)-65: address.charCodeAt(0)-97;
         let rowId=Number(address.substring(1))-1;
+        let colId=address.charCodeAt(0)<=90? address.charCodeAt(0)-65: address.charCodeAt(0)-97;
         return{
             rowId: rowId,
             colId: colId
@@ -97,7 +123,8 @@ $(document).ready(function(){
                     name: name,
                     value:"",
                     formula:"",
-                    children:[]                    
+                    children:[],
+                    parent: []                  
                 };
                 row.push(cellObject);
             }
