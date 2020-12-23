@@ -3,22 +3,71 @@
     margin: 0px;
     padding: 0px;
 }
+
+
 .menu{
-    border:1px solid;
+    border: 1px solid;
     height: 35px;
 }
-.menu-option{
-    border:1px solid pink;
+
+.menu-options{
+    border: 1px solid pink;
     height: 50px;
 }
+
 .formula{
     border: 1px solid;
     height: 35px;
 }
-.cells{
+
+.content{
     height: calc(100vh - 155px);
     overflow: auto;
+    position: relative;
 }
+
+.cells{
+    position: absolute;
+    left: 30px;
+    top: 25px;
+}
+
+.top-left-cell{
+    background: lightgray;
+    width: 30px;
+    height: 25px;
+    z-index: 3;
+}
+
+.top-row{
+    display: flex;
+    position: absolute;
+    left: 30px;
+    top: 0px;
+    z-index: 2;
+}
+
+
+.top-row-cell{
+    border: 1px solid;
+    min-width: 70px;
+    min-height: 25px;
+    text-align: center;
+    background: lightgreen;
+}
+
+.left-col{
+
+}
+
+.top-col-cell{
+    height: 25px;
+    border: 1px solid;
+    width: 30px;
+    background: lightgreen;
+    text-align: center;
+}
+
 .row{
     display: flex;
 }
@@ -27,7 +76,8 @@
     min-width: 70px;
     min-height: 25px;
 }
-.sheet{
+
+.sheets{
     border: 1px solid blue;
     height: 35px;
 }

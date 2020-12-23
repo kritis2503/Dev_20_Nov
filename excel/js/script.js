@@ -5,11 +5,11 @@ $(document).ready(function(){
     let lsc;
 
     $(".cell").on("click",function(){
-        let rowId=Number($(this).attr("rowid"))+1;
+        let rowId=Number($(this).attr("rowid"));
         let colId=Number($(this).attr("colid"));
-        let cellObject=db[rowId][colId];
+         let cellObject=db[rowId][colId];
         $("#formula").val(cellObject.formula);
-        let address=String.fromCharCode(65+colId)+rowId+"";
+        let address=String.fromCharCode(65+colId)+(rowId+1)+"";
         $("#address").val(address);
     });
 
@@ -21,7 +21,8 @@ $(document).ready(function(){
         let cellObject=db[rowId][colId];
         if(value!=cellObject.value){
             cellObject.value=value;
-            console.log("yess");
+            removeFormula(cellObject);
+            //console.log("yess");
             updateChildren(cellObject);
         }
     });
@@ -38,31 +39,35 @@ $(document).ready(function(){
                 let value=solveFormula(formula,cellObject);
                 cellObject.value=value;
                 cellObject.formula=formula;
+                $(lsc).text(value);
                 updateChildren(cellObject);
                 console.log(db);
-                $(lsc).text(value);
             }
         }
     });
     function removeFormula(selfCellObject){
-        if(selfCellObject.formula.length==0)
-            return;
+        $("#formula").val("");        
         selfCellObject.formula="";
-        for(let i=selfCellObject.parent.length-1;i>=0;i++){
+        for(let i=selfCellObject.parent.length-1;i>=0;i--){
             let {rowId,colId}=getRowIdColIdFromAddress(selfCellObject.parent[i]);
             let parentCellObject=db[rowId][colId];
-            let idx=-1;
-            for(let j=0;j<parentCellObject.children.length;j++)
-            {
-                if(parentCellObject[j]==selfCellObject)
-                {
-                    idx=j;
-                    break;
-                }
-            }
-            parentCellObject.children.pop(idx);
+            // let idx=-1;
+            // for(let j=0;j<parentCellObject.children.length;j++)
+            // {
+                // if(parentCellObject[j]==selfCellObject)
+                // {
+                    // idx=j;
+                    // break;
+                // }
+            // }
+            // parentCellObject.children.splice(idx,1);
+            let childrenOfParent=parentCellObject.children;
+            let filteredchild=childrenOfParent.filter(function(child){
+                return child!=selfCellObject.name;
+            });
+            parentCellObject.children=filteredchild;
+            selfCellObject.parent.pop();
         }
-        selfCellObject.parent.pop();
     }
 
     function updateChildren(cellObject){
@@ -75,7 +80,6 @@ $(document).ready(function(){
 
             $(`div[rowid=${rowId}][colid=${colId}]`).text(value);
             updateChildren(childrenCellObject);
-
         }
     }
 
@@ -87,10 +91,10 @@ $(document).ready(function(){
             if((firstCharacter>="A" && firstCharacter<="Z")|| (firstCharacter>="a" && firstCharacter<="z")){
                 let {rowId,colId}=getRowIdColIdFromAddress(comp);
                 let cellObject=db[rowId][colId];
-                selfCellObject.parent.push(cellObject.name);
-
+                
                 if(selfCellObject){
                     cellObject.children.push(selfCellObject.name);
+                    selfCellObject.parent.push(cellObject.name);
                 }
 
                 let value=cellObject.value;

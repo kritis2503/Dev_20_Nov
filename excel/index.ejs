@@ -14,6 +14,20 @@
             <input type="text" id="address" disabled>
           <input type="text" id="formula">
         </div>
+        <div class="content">
+            <div class="top-left-cell">
+
+            </div>
+            <div class="top-row">
+                <%for(let j=0 ; j<26 ; j++){%>
+                    <div class="top-row-cell" cellid = <%= j%>> <%= String.fromCharCode(65+j) %>    </div>
+                    <%}%>              
+            </div>
+            <div class="top-col">
+                <%for(let j=0 ; j<100 ; j++){%>
+                    <div class="top-col-cell" cellid = <%= j%>> <%= j+1 %>    </div>
+                    <%}%> 
+            </div>
         <div class="cells">
             <%for(let i=0;i<100;i++) {%>
                 <div class="row">
@@ -22,6 +36,7 @@
                         <%}%>
                 </div>
                 <%}%>
+        </div>
         </div>
         <div class="sheet">sheet</div>
          <script src="./js/script.js"></script> 
