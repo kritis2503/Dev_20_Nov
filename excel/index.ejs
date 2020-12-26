@@ -8,8 +8,20 @@
     </head>
     <body>
 
-        <div class="menu">menu</div>
-        <div class="menu-option">menu option</div>
+        <div class="menu">
+            <div class="file active">File</div>
+            <div class="home">Home</div>
+        </div>
+        <div class="menu-option">
+            <div class="file-menu-options">
+                <div class="new">New</div>
+                <div class="open">Open</div>
+                <div class="save">Save</div>
+            </div>
+            <div class="home-menu-options hide">
+                Home Menu Options
+            </div>
+        </div>
         <div class="formula">
             <input type="text" id="address" disabled>
           <input type="text" id="formula">
@@ -23,9 +35,9 @@
                     <div class="top-row-cell" cellid = <%= j%>> <%= String.fromCharCode(65+j) %>    </div>
                     <%}%>              
             </div>
-            <div class="top-col">
+            <div class="left-col">
                 <%for(let j=0 ; j<100 ; j++){%>
-                    <div class="top-col-cell" cellid = <%= j%>> <%= j+1 %>    </div>
+                    <div class="left-col-cell" cellid = <%= j%>> <%= j+1 %>    </div>
                     <%}%> 
             </div>
         <div class="cells">

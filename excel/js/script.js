@@ -1,4 +1,12 @@
 let $= require("jquery");
+let remote=require("electron").remote;
+let dialog=remote.dialog;
+let path=require("path");
+let fs=require("fs");
+
+
+fs.writeFileSync("./test.txt" , "lkaskfja");
+
 
 $(document).ready(function(){
     let db;
@@ -45,6 +53,72 @@ $(document).ready(function(){
             }
         }
     });
+    $('.content').on("scroll",function(){
+        let top=$(this).scrollTop();
+        let left=$(this).scrollLeft();
+
+        $(".top-row, .top-left-cell").css("top",top+"px");
+        $(".left-col, .top-left-cell").css("left",left+px);
+    });
+
+    $(".cell").on("keyup",function(){
+        console.log("keyup");
+        let height=$(this).height();
+        let id=$(this).attr("rowid");
+        $(`.left-col-cell[cellid=${id}]`).height(height);
+    });
+
+    $(".new").on("click",function(){
+        console.log("New buuton clicked");
+        initDB();
+        initUI();
+    });
+
+    $('.open').on("click",function(){
+        console.log("open button is clciked");
+        console.log(db);
+    });
+
+    $('.save').on("click",function(){
+        console.log("Save button is clicked !!");
+        let path = dialog.showSaveDialogSync();
+        console.log(path);
+        let filePath = __dirname;
+        fs.writeFileSync(path , JSON.stringify(db));
+        alert("FILE SAVED");
+    // fs.writeFileSync("../myDb.txt" ,JSON.stringify(db) );
+
+    // let filePath = __dirname;
+    // filePath = path.join(filePath,"myDb.txt");
+    // console.log(filePath);
+
+    //fs.writeFileSync( filePath , "alsjkfnjaksf");
+    });
+    $(".open").on("click",function(){
+        console.log("open button clicked");
+        let path=dialog.showOpenDialogSync();
+        let openeddb=fs.readFileSync(path[0]);
+        db=JSON.parse(openeddb);
+        setUI(db);
+    })
+    $(".file , .home").on("click" , function(){
+        let menu = $(this).text();
+        if(menu == "File"){
+          $(".file").addClass("active");
+          $(".file-menu-options").removeClass("hide");
+          $(".home-menu-options").addClass("hide");
+          $(".home").removeClass("active");
+          
+        }
+        else{
+          // menu == "Home"
+          $(".file").removeClass("active");
+          $(".file-menu-options").addClass("hide");
+          $(".home").addClass("active");
+          $(".home-menu-options").removeClass("hide");
+    
+        }
+      });
     function removeFormula(selfCellObject){
         $("#formula").val("");        
         selfCellObject.formula="";
@@ -114,6 +188,23 @@ $(document).ready(function(){
             colId: colId
         }
     }
+    function setUI(db){
+        for(let i=0;i<100;i++){
+            for(let j=0;j<26;j++){
+                let cellObject=db[i][j];
+                $(`div[rowid="${i}"][colid="${j}"]`).text(cellObject.value);
+            }
+        }
+    }
+    function initUI(){
+        let cells = $(".cell");
+        let count=0;
+        for(let i=0 ; i<cells.length ; i++){
+          $(cells[i]).text("");
+          console.log(count);
+          count++;
+        }
+      }
 
     function initDB(){
         db=[];

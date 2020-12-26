@@ -5,9 +5,11 @@ function createWindow () {
         width: 800,
         height: 600,
         webPreferences: {
-          nodeIntegration: true // node enable
-        }
+          nodeIntegration: true ,// node enable
+          enableRemoteModule:true
+        },
       });
+      
       win.loadFile('index.ejs').then(function(){
           win.maximize();
           win.webContents.openDevTools();
