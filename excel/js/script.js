@@ -11,6 +11,7 @@ fs.writeFileSync("./test.txt" , "lkaskfja");
 $(document).ready(function(){
     let db;
     let lsc;
+    let sheetsDB=[];
 
     $(".cell").on("click",function(){
         let rowId=Number($(this).attr("rowid"));
@@ -73,19 +74,18 @@ $(document).ready(function(){
         initDB();
         initUI();
     });
-
-    $('.open').on("click",function(){
-        console.log("open button is clciked");
-        console.log(db);
-    });
-
-    $('.save').on("click",function(){
+    $(".save").on("click",function(){
         console.log("Save button is clicked !!");
         let path = dialog.showSaveDialogSync();
-        console.log(path);
-        let filePath = __dirname;
-        fs.writeFileSync(path , JSON.stringify(db));
+        // console.log(path);
+        // let filePath = __dirname;
+        if(path){
+        fs.writeFileSync(path , JSON.stringify(sheetsDB));
         alert("FILE SAVED");
+        }
+        else{
+            alert("NO FILE SELECTED");
+        }
     // fs.writeFileSync("../myDb.txt" ,JSON.stringify(db) );
 
     // let filePath = __dirname;
@@ -94,12 +94,43 @@ $(document).ready(function(){
 
     //fs.writeFileSync( filePath , "alsjkfnjaksf");
     });
+    let sheetid=0;
+    $(".sheet-add").on("click",function(){
+        $(".active-sheet").removeClass("active-sheet");
+        console.log("sheet add clicked");
+        sheetid++;
+
+        let sheet=`<div class="sheet active-sheet" sid="${sheetid}">Sheet ${sheetid+1}</div>`;
+        $(".sheets-list").append(sheet);
+
+        $(".active-sheet").on("click",function(){
+            if(!$(this).hasClass("active-sheet")){
+                $(".active-sheet").removeClass("active-sheet");
+                $(this).addClass("active-sheet");
+                let sheetId=$(this).attr("sid");
+                db=sheetsDB[sheetId];
+                setUI();
+            }
+        });
+        initDB();
+        initUI();
+        console.log(sheetsDB);
+    });
+    $(".sheet").on("click",function(){
+        if(!(this).hasClass("active-sheet")){
+            $(".active-sheet").removeClass("active-sheet");
+            $(this).addClass("active-sheet");
+            let sheetId= $(this).attr("sid");
+            db=sheetsDB[sheetId];
+            setUI();
+        }
+    });
     $(".open").on("click",function(){
         console.log("open button clicked");
         let path=dialog.showOpenDialogSync();
         let openeddb=fs.readFileSync(path[0]);
         db=JSON.parse(openeddb);
-        setUI(db);
+        setUI();
     })
     $(".file , .home").on("click" , function(){
         let menu = $(this).text();
@@ -188,7 +219,7 @@ $(document).ready(function(){
             colId: colId
         }
     }
-    function setUI(db){
+    function setUI(){
         for(let i=0;i<100;i++){
             for(let j=0;j<26;j++){
                 let cellObject=db[i][j];
@@ -198,11 +229,11 @@ $(document).ready(function(){
     }
     function initUI(){
         let cells = $(".cell");
-        let count=0;
+        //let count=0;
         for(let i=0 ; i<cells.length ; i++){
           $(cells[i]).text("");
-          console.log(count);
-          count++;
+          //console.log(count);
+          //count++;
         }
       }
 
@@ -225,6 +256,7 @@ $(document).ready(function(){
             }
             db.push(row);
         }
+        sheetsDB.push(db);
         console.log(db);
     }
     initDB();
