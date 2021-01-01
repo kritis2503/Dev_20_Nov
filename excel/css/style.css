@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
+    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -41,10 +42,51 @@
 }
 
 .menu-option{
-    /* border: 1px solid pink; */
+     border: 1px solid lightgray; 
     height: 46px;
     display: flex;
     align-items: center;
+}
+.home-menu-options{
+    display: flex;
+    width: 40%;
+    justify-content: space-around;
+    height: 100%;
+}
+.home-menu{
+    widows: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.one select{
+    width: 100%;
+}
+.font-styles{
+    display: flex;
+    justify-content: space-around;
+}
+.font-styles button{
+    width: 35px;    
+}
+.two select{
+    widows: 82%;
+}
+.font-color{
+
+}
+.font-color input{
+
+}
+.three{
+
+}
+.font-alignment{
+
+}
+.font-alignment button{
+    width:33px;
 }
 
 .formula{

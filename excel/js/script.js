@@ -1,12 +1,7 @@
 let $= require("jquery");
 let remote=require("electron").remote;
 let dialog=remote.dialog;
-let path=require("path");
 let fs=require("fs");
-
-
-fs.writeFileSync("./test.txt" , "lkaskfja");
-
 
 $(document).ready(function(){
     let db;
@@ -74,6 +69,32 @@ $(document).ready(function(){
         initDB();
         initUI();
     });
+    $(".open").on("click",function(){
+        console.log("open button clicked");
+        let path=dialog.showOpenDialogSync();
+        let openeddb=fs.readFileSync(path[0]);
+        sheetsDB=JSON.parse(openeddb);
+
+        setUI(sheetsDB[0]);
+        //console.log(sheetsDB.length());
+        for(let i=0;i<sheetsDB.length;i++){
+            
+                $(".active-sheet").removeClass("active-sheet");
+                console.log("sheet add clicked");
+                sheetid++;
+                let sheet=`<div class="sheet active-sheet" sid="${sheetid}">Sheet ${sheetid+1}</div>`;
+                $(".sheets-list").append(sheet);
+                $(".active-sheet").on("click",function(){
+                    if(!$(this).hasClass("active-sheet")){
+                        $(".active-sheet").removeClass("active-sheet");
+                        $(this).addClass("active-sheet");
+                        let sheetId=$(this).attr("sid");
+                        db=sheetsDB[sheetId];
+                        //setUI();
+                    }
+                });
+        }
+    });
     $(".save").on("click",function(){
         console.log("Save button is clicked !!");
         let path = dialog.showSaveDialogSync();
@@ -85,14 +106,34 @@ $(document).ready(function(){
         }
         else{
             alert("NO FILE SELECTED");
+        } 
+    });
+    $(".font-styles button").on("click",function(){
+        let button=$(this).text();
+        console.log(`clicked on ${button}`);
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
+        if(button=="B"){
+            $(lsc).css("font-weight",cellObject.fontStyles.bold?"normal":"bold");
+            cellObject.fontStyles.bold=!cellObject.fontStyles.bold;
         }
-    // fs.writeFileSync("../myDb.txt" ,JSON.stringify(db) );
+        else if(button=="U"){
+            $(lsc).css("text-decoration",cellObject.fontStyles.underline?"none":"underline");
+            cellObject.fontStyles.underline=!cellObject.fontStyles.underline;
+        }
+        else{
+            $(lsc).css("text-style",cellObject.fontStyles.italic?"normal":"italic");
+            cellObject.fontStyles.italic=!cellObject.fontStyles.italic;   
+        }
+    });
+    $(".font-alignment button").on("click",function(){
+        let button=$(this).text();
+        console.log(`clicked on ${button}`);
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
 
-    // let filePath = __dirname;
-    // filePath = path.join(filePath,"myDb.txt");
-    // console.log(filePath);
-
-    //fs.writeFileSync( filePath , "alsjkfnjaksf");
     });
     let sheetid=0;
     $(".sheet-add").on("click",function(){
@@ -117,7 +158,7 @@ $(document).ready(function(){
         console.log(sheetsDB);
     });
     $(".sheet").on("click",function(){
-        if(!(this).hasClass("active-sheet")){
+        if(!$(this).hasClass("active-sheet")){
             $(".active-sheet").removeClass("active-sheet");
             $(this).addClass("active-sheet");
             let sheetId= $(this).attr("sid");
@@ -125,13 +166,6 @@ $(document).ready(function(){
             setUI();
         }
     });
-    $(".open").on("click",function(){
-        console.log("open button clicked");
-        let path=dialog.showOpenDialogSync();
-        let openeddb=fs.readFileSync(path[0]);
-        db=JSON.parse(openeddb);
-        setUI();
-    })
     $(".file , .home").on("click" , function(){
         let menu = $(this).text();
         if(menu == "File"){
@@ -219,7 +253,7 @@ $(document).ready(function(){
             colId: colId
         }
     }
-    function setUI(){
+    function setUI(db){
         for(let i=0;i<100;i++){
             for(let j=0;j<26;j++){
                 let cellObject=db[i][j];
@@ -250,7 +284,9 @@ $(document).ready(function(){
                     value:"",
                     formula:"",
                     children:[],
-                    parent: []                  
+                    parent: [],
+                    fontStyles:{bold:false , italic:false , underline:false},
+                    fontAlignment:"left"
                 };
                 row.push(cellObject);
             }
@@ -261,4 +297,6 @@ $(document).ready(function(){
     }
     initDB();
 });
- 
+ //cycle detection-graph
+ //stack infix
+ //css
