@@ -123,8 +123,8 @@ $(document).ready(function(){
             cellObject.fontStyles.underline=!cellObject.fontStyles.underline;
         }
         else{
-            $(lsc).css("text-style",cellObject.fontStyles.italic?"normal":"italic");
-            cellObject.fontStyles.italic=!cellObject.fontStyles.italic;   
+            $(lsc).css("font-style" , cellObject.fontStyles.italic ? "normal":"italic");
+      cellObject.fontStyles.italic = !cellObject.fontStyles.italic;           
         }
     });
     $(".font-alignment button").on("click",function(){
@@ -133,8 +133,96 @@ $(document).ready(function(){
         let rowId=$(lsc).attr("rowid");
         let colId=$(lsc).attr("colid");
         let cellObject=db[rowId][colId];
-
+        if(button=="L"){
+            $(lsc).css("text-align","left");
+            cellObject.fontAlignment="left";
+        }
+        else if(button=="C"){
+            $(lsc).css("text-align","center");
+            cellObject.fontAlignment="center";
+        }
+        else{
+            $(lsc).css("text-align","right");
+            cellObject.fontAlignment="right";
+        }
     });
+    $("#font-size").on("change",function(){
+        let fontSize=$(this).val();
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
+        $(lsc).css("font-size",fontSize+"px");
+        cellObject.fontSize=fontSize;
+    });
+    $("#cell-font-color").on("change",function(){
+        let color=$(this).val();
+        console.log(color);
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
+        $(lsc).css("color",color);
+        cellObject.fontColor=color;
+    });
+    $("#cell-color").on("change",function(){
+        let color=$(this).val();
+        console.log(color);
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
+        $(lsc).css("background",color);
+        cellObject.fontBackground=color;
+    });
+   $("#font-select").on("change",function(){
+    let font=$(this).val();
+    let rowId=$(lsc).attr("rowid");
+    let colId=$(lsc).attr("colid");
+    let cellObject=db[rowId][colId];
+    $(lsc).css("font-family",font);
+    cellObject.fontName=font;
+   });
+    let fontStyles;
+    let fontAlignment;
+    let fontSize;
+    let fontColor;
+    let fontBackground;                                 
+    let fontName;
+    $(".copy-format").on("click",function(){
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
+        fontStyles=cellObject.fontStyles;
+        fontAlignment=cellObject.fontAlignment;
+        fontSize=cellObject.fontSize;
+        fontColor=cellObject.fontColor;
+        fontBackground=cellObject.fontBackground;
+        fontName=cellObject.fontName;
+    });
+
+   $(".paint-format").on("click",function(){
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
+        console.log(fontStyles);
+        $(lsc).css("font-weight",fontStyles.bold?"normal":"bold");
+        $(lsc).css("text-decoration",fontStyles.underline?"none":"underline");
+        $(lsc).css("font-style" , fontStyles.italic ? "normal":"italic");
+        $(lsc).css("text-align",fontAlignment);
+        $(lsc).css("font-style" , fontSize+"px");
+        $(lsc).css("color",fontColor);
+        $(lsc).css("background",fontBackground);
+        $(lsc).css("font-family",fontName);   
+        
+
+   }); 
+   $(".hide-row").on("click",function(){
+        let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        let cellObject=db[rowId][colId];
+        console.log(lsc);
+        console.log(this);
+        
+    });
+   
     let sheetid=0;
     $(".sheet-add").on("click",function(){
         $(".active-sheet").removeClass("active-sheet");
@@ -183,11 +271,12 @@ $(document).ready(function(){
           $(".home-menu-options").removeClass("hide");
     
         }
-      });
+      }); 
+      
     function removeFormula(selfCellObject){
         $("#formula").val("");        
         selfCellObject.formula="";
-        for(let i=selfCellObject.parent.length-1;i>=0;i--){
+        for(let i=selfCellObject.parent.length()-1;i>=0;i--){
             let {rowId,colId}=getRowIdColIdFromAddress(selfCellObject.parent[i]);
             let parentCellObject=db[rowId][colId];
             // let idx=-1;
@@ -281,12 +370,16 @@ $(document).ready(function(){
                 let name=colId+rowId+"";
                 let cellObject={
                     name: name,
-                    value:"",
-                    formula:"",
-                    children:[],
-                    parent: [],
+                    value: "",
+                    formula: "",
+                    childrens: [],
+                    parents: [],
                     fontStyles:{bold:false , italic:false , underline:false},
-                    fontAlignment:"left"
+                    fontAlignment:"left",
+                    fontSize:"16",
+                    fontColor:"black",
+                    fontBackground:"white",                                 
+                    fontName: "Roboto"
                 };
                 row.push(cellObject);
             }

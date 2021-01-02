@@ -73,6 +73,21 @@
 .two select{
     widows: 82%;
 }
+.paint-format{
+    width: 35px;
+    height: 37px;
+}
+#paint-format{
+
+}
+.fas1{   
+    color: black;
+font-size: 21px;
+margin: auto;
+}   
+.four{
+    widows: 82%;
+}
 .font-color{
 
 }
