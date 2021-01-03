@@ -46,10 +46,11 @@
     height: 46px;
     display: flex;
     align-items: center;
+    
 }
 .home-menu-options{
     display: flex;
-    width: 40%;
+    width: -30%;
     justify-content: space-around;
     height: 100%;
 }
@@ -128,6 +129,13 @@ margin: auto;
     position: absolute;
     z-index: 3;
 }
+.freeze-row{
+    display: flex;
+    position: absolute;
+    left: 30px;
+    top: 0px;
+    z-index: 2;
+}
 
 .top-row{
     display: flex;
@@ -159,7 +167,10 @@ margin: auto;
     background: lightgreen;
     text-align: center;
 }
-
+.five{
+    display: contents;
+    margin-left: 10px;
+}
 .row{
     display: flex;
 }
@@ -169,7 +180,11 @@ margin: auto;
     max-width: 70px;
     min-height: 25px;
 }
-
+.merge{
+    min-width: 70px;
+    max-width: 70px;
+    min-height: 25px;
+}
 .sheets{
     height: 35px;
     display: flex;

@@ -54,7 +54,7 @@ $(document).ready(function(){
         let left=$(this).scrollLeft();
 
         $(".top-row, .top-left-cell").css("top",top+"px");
-        $(".left-col, .top-left-cell").css("left",left+px);
+        $(".left-col, .top-left-cell").css("left",left+"px");
     });
 
     $(".cell").on("keyup",function(){
@@ -119,14 +119,26 @@ $(document).ready(function(){
             cellObject.fontStyles.bold=!cellObject.fontStyles.bold;
         }
         else if(button=="U"){
+            if(cellObject.fontStyles.strikeThrough)
+            $(lsc).css("text-decoration","underline line-through");
+            else
             $(lsc).css("text-decoration",cellObject.fontStyles.underline?"none":"underline");
             cellObject.fontStyles.underline=!cellObject.fontStyles.underline;
         }
-        else{
+        else if(button=="I"){
             $(lsc).css("font-style" , cellObject.fontStyles.italic ? "normal":"italic");
-      cellObject.fontStyles.italic = !cellObject.fontStyles.italic;           
+            cellObject.fontStyles.italic = !cellObject.fontStyles.italic;           
+        }
+        else{
+            //text-decoration: line-through;
+            if(cellObject.fontStyles.underline)
+            $(lsc).css("text-decoration","line-through underline");
+            else
+            $(lsc).css("text-decoration","line-through");
+            cellObject.fontStyles.strikeThrough=!cellObject.fontStyles.strikeThrough;
         }
     });
+
     $(".font-alignment button").on("click",function(){
         let button=$(this).text();
         console.log(`clicked on ${button}`);
@@ -199,30 +211,63 @@ $(document).ready(function(){
     });
 
    $(".paint-format").on("click",function(){
-        let rowId=$(lsc).attr("rowid");
-        let colId=$(lsc).attr("colid");
-        let cellObject=db[rowId][colId];
         console.log(fontStyles);
-        $(lsc).css("font-weight",fontStyles.bold?"normal":"bold");
-        $(lsc).css("text-decoration",fontStyles.underline?"none":"underline");
-        $(lsc).css("font-style" , fontStyles.italic ? "normal":"italic");
+        $(lsc).css("font-weight",fontStyles.bold?"bold":"normal");
+        $(lsc).css("font-style" , fontStyles.italic ? "italic":"normal");
+        if(fontStyles.underline && fontStyles.strikeThrough)
+            $(lsc).css("text-decoration","underline line-through");
+        else
+        if(fontStyles.underline)
+            $(lsc).css("text-decoration","underline");
+        else
+        if(fontStyles.strikeThrough)
+            $(lsc).css("text-decoration","line-through");
         $(lsc).css("text-align",fontAlignment);
-        $(lsc).css("font-style" , fontSize+"px");
+        $(lsc).css("font-size" , fontSize+"px");
         $(lsc).css("color",fontColor);
         $(lsc).css("background",fontBackground);
-        $(lsc).css("font-family",fontName);   
-        
-
+        $(lsc).css("font-family",fontName);       
    }); 
    $(".hide-row").on("click",function(){
         let rowId=$(lsc).attr("rowid");
-        let colId=$(lsc).attr("colid");
-        let cellObject=db[rowId][colId];
-        console.log(lsc);
-        console.log(this);
+        // let colId=$(lsc).attr("colid");
+        // let cellObject=db[rowId][colId];
+        // console.log(lsc);
+        // console.log(this);
+        let allRows = $(".cells .row")
+        let toBeHide = allRows[rowId];
+        $(toBeHide).css("display","none");
+        let leftCell=$(".left-col-cell");
+        let tobeHidden=leftCell[rowId];
+        $(tobeHidden).css("display","none");
         
     });
-   
+    $(".hide-column").on("click",function(){
+        //let rowId=$(lsc).attr("rowid");
+        let colId=$(lsc).attr("colid");
+        // let cellObject=db[rowId][colId];
+        // console.log(lsc);
+        // console.log(this);
+        let allcol = $(".cells .row");
+        let toBeHide = allcol[colId];
+        //console.log(toBeHide);
+        $(toBeHide).addClass("hide");
+       let topCol=$(".top-row-cell");
+        let tobeHidden=topCol[colId];
+        $(tobeHidden).css("display","none");
+        
+    });
+    $(".freeze-row").on("click",function(){
+        let rowId=$(lsc).attr("rowid");
+        let rows;
+        for(let i=0;i<=rowId;i++){
+            let r=$(".cells .row");
+            let row=r[i];
+            rows.push(r);
+        }
+        
+
+    })
     let sheetid=0;
     $(".sheet-add").on("click",function(){
         $(".active-sheet").removeClass("active-sheet");
@@ -276,7 +321,7 @@ $(document).ready(function(){
     function removeFormula(selfCellObject){
         $("#formula").val("");        
         selfCellObject.formula="";
-        for(let i=selfCellObject.parent.length()-1;i>=0;i--){
+        for(let i=selfCellObject.parents.length-1;i>=0;i--){
             let {rowId,colId}=getRowIdColIdFromAddress(selfCellObject.parent[i]);
             let parentCellObject=db[rowId][colId];
             // let idx=-1;
@@ -300,7 +345,7 @@ $(document).ready(function(){
 
     function updateChildren(cellObject){
         console.log("update children");
-        for(let i=0;i<cellObject.children.length;i++){
+        for(let i=0;i<cellObject.childrens.length;i++){
             let {rowId,colId}=getRowIdColIdFromAddress(cellObject.children[i]);
             let childrenCellObject=db[rowId][colId];
             let value=solveFormula(childrenCellObject.formula);
@@ -374,7 +419,7 @@ $(document).ready(function(){
                     formula: "",
                     childrens: [],
                     parents: [],
-                    fontStyles:{bold:false , italic:false , underline:false},
+                    fontStyles:{bold:false , italic:false , underline:false,strikeThrough: false},
                     fontAlignment:"left",
                     fontSize:"16",
                     fontColor:"black",

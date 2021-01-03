@@ -1,0 +1,17 @@
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+.tools{
+    background: lightblue;
+    height:100px;
+}
+.canvas{
+    height: calc(100vh-100px);
+   
+    background: lightgray;
+}
+#canvas{
+    background: coral;
+}
