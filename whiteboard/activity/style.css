@@ -3,15 +3,82 @@
     padding: 0px;
     margin: 0px;
 }
-.tools{
-    background: lightblue;
+.tools-content{
+   align-items: center;
     height:100px;
+    display: flex;
+    justify-content: center;
 }
 .canvas{
     height: calc(100vh-100px);
-   
-    background: lightgray;
 }
 #canvas{
-    background: coral;
+  
+}
+.tools{
+    display: flex;
+    width: 80%;
+    background: white;
+    justify-content: space-evenly;
+    height: 80%;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.175);
+}
+.tool{
+    height: 55px;
+    position: relative;
+}
+.tool img{
+    height: 100%;
+}
+.active-tool{
+    background: lightgray;
+    border-radius: 100%;
+    padding: 10px;
+    height: 65px;
+}
+.tool-options{
+    position: absolute;
+    height: 151px;
+    width: 166px;
+    background: lightblue;
+    top: 69px;
+    left: -57px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.tool-options input{
+
+}
+.pencil-color{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.pencil-color div{
+    height: 30px;
+    width: 40px;
+    border-radius: 50%;
+}
+.red{
+    background: red;
+}
+.black{
+    background: black;
+}
+.blue{
+    background: blue;
+}
+.green{
+    background: green;
+}
+.yellow{
+    background: yellow;
+}
+.hide{
+    display: none;
 }
