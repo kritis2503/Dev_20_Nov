@@ -12,6 +12,9 @@ let black=document.querySelector(".black");
 let pencilSize=document.querySelector("#pencil-size");
 let eraserSize=document.querySelector("#eraser-size");
 
+let undo=document.querySelector("#undo");
+let redo=document.querySelector("#redo");
+
 let lastPencilSize=1;
 let lastEraserSize=1;
 
@@ -76,3 +79,49 @@ eraser.addEventListener("click",function(){
         pencil.classList.remove("active-tool");
     }
 });
+
+undo.addEventListener("click",function(){
+    let undoLine=db.pop();
+    redoDb.push(undoLine);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    redraw();
+});
+
+redo.addEventListener("click",function(){
+    if(redoDb.length){
+        let redoLine=redoDb.pop();
+        db.push(redoLine);
+        for(let i=0;i<redoLine.length;i++){
+            let lineObj=redoLine[i];
+            ctx.strokeStyle=lineObj.color;
+            ctx.lineWidth=lineObj.width;
+            if(lineObj.id=='md'){
+                ctx.beginPath();
+                ctx.moveTo(lineObj.x,lineObj.y);
+            }
+            else{
+                ctx.lineTo(lineObj.x,lineObj.y);
+                ctx.stroke();
+            }
+        }
+    }
+});
+
+function redraw(){
+    for(let i=0;i<db.length;i++){
+        let line=db[i];
+        for(let j=0;j<line.length;j++){
+            let lineObj=line[j];
+            ctx.strokeStyle=lineObj.color;
+            ctx.lineWidth=lineObj.width;
+            if(lineObj.id=='md'){
+                ctx.beginPath();
+                ctx.moveTo(lineObj.x,lineObj.y);
+            }
+            else{
+                ctx.lineTo(lineObj.x,lineObj.y);
+                ctx.stroke();
+            }
+        }
+    }
+}

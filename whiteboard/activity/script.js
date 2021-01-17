@@ -12,6 +12,9 @@ window.addEventListener("resize",function(){
 });
 
 let isPenDown=false;
+let db=[];
+let redoDb=[];
+
 ctx.lineCap="round";
 canvas.addEventListener("mousedown",function(e){
     isPenDown=true;
@@ -20,6 +23,14 @@ canvas.addEventListener("mousedown",function(e){
 
     ctx.beginPath();
     ctx.moveTo(x,y);
+    let pointObj={
+        id="md",
+        x:x,
+        y: y,
+        width: ctx.lineWidth,
+        color: ctx.strokeStyle
+    };
+    line.push(pointObj);
 });
 
 canvas.addEventListener("mousemove",function(e){
@@ -29,9 +40,20 @@ canvas.addEventListener("mousemove",function(e){
 
         ctx.lineTo(x,y);
         ctx.stroke();
+        let pointObj={
+            id="md",
+            x:x,
+            y: y,
+            width: ctx.lineWidth,
+            color: ctx.strokeStyle
+        };
+        line.push(pointObj);
     }
 });
 
 canvas.addEventListener("mouseup",function(e){
     isPenDown=false;
+    db.push(line);
+    line=[];
+    console.log(db);
 })

@@ -4,7 +4,7 @@
     margin: 0px;
 }
 .tools-content{
-   align-items: center;
+   align-items: center; 
     height:100px;
     display: flex;
     justify-content: center;
