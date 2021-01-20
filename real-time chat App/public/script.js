@@ -1,4 +1,4 @@
-let sendButton=document.querySelector("#send-chat");
+let sendButton=document.querySelector(".send-button");
 let chatMessage=document.querySelector("#chat-message");
 let chatList=document.querySelector(".chat-list");
 

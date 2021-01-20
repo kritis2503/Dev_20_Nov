@@ -9,7 +9,7 @@ app.use(express.static("public"));
 let user=[];
 
 io.on('connection',function(socket){
-    console.log(`${socket.id}connected`);
+    console.log(`${socket.id} connected`);
     user.push({id:socket.id})
 
     socket.on("join",function(username){
