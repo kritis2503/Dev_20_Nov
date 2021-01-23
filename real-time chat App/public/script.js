@@ -16,7 +16,7 @@ sendButton.addEventListener("click",function(){
         chat.classList.add("chat");
         chat.classList.add("right");
         chat.innerHTML=message;
-        classList.append(chat);
+        chatList.append(chat);
         chatMessage.value="";
 
         socket.emit("chat",message);

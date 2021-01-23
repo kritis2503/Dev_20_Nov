@@ -5,6 +5,7 @@ const http=require('http').Server(app);
 const io=require('socket.io')(http);
 
 app.use(express.static("public"));
+app.use(require('cors')());
 
 let user=[];
 
@@ -47,8 +48,14 @@ io.on('connection',function(socket){
         user.splice(idx,1);
     });
 });
-
-let port=3000;
-http.listen(port,function(){
-    console.log("Server started at port 3000");
+const io = require("socket.io")(http, {
+    cors: {
+        origin: "http://localhost:4200",
+        methods: ["GET", "POST"]
+    }
 })
+http.listen(3000)
+// let port=3000;
+// http.listen(port,function(){
+    // console.log("Server started at port 3000");
+// })
