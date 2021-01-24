@@ -18,14 +18,14 @@ let redo=document.querySelector("#redo");
 let lastPencilSize=1;
 let lastEraserSize=1;
 
-pencil.addEventListener("change",function(){
+pencilSize.addEventListener("change",function(e){
+    console.log(e);
     lastPencilSize=pencilSize.value;
     ctx.lineWidth=lastPencilSize;
 });
-
-eraser.addEventListener("change",function(){
+eraserSize.addEventListener("change",function(){
     lastEraserSize=eraserSize.value;
-    ctx.lineWidth=lastEraserSize
+    ctx.lineWidth=lastEraserSize;
 });
 
 
@@ -80,6 +80,8 @@ eraser.addEventListener("click",function(){
     }
 });
 
+
+
 undo.addEventListener("click",function(){
     let undoLine=db.pop();
     redoDb.push(undoLine);
@@ -106,6 +108,8 @@ redo.addEventListener("click",function(){
         }
     }
 });
+
+
 
 function redraw(){
     for(let i=0;i<db.length;i++){

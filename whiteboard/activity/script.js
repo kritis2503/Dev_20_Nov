@@ -9,51 +9,58 @@ canvas.width=window.innerWidth;
 window.addEventListener("resize",function(){
     canvas.height=window.innerHeight-canvasTop;
     canvas.width=window.innerWidth;
+
+    redraw();
 });
 
-let isPenDown=false;
+let isMouseDown=false;
 let db=[];
 let redoDb=[];
-
 ctx.lineCap="round";
+let line=[];
+
 canvas.addEventListener("mousedown",function(e){
-    isPenDown=true;
+    isMouseDown=true;
     let x=e.clientX;
     let y=e.clientY-canvasTop;
 
     ctx.beginPath();
     ctx.moveTo(x,y);
     let pointObj={
-        id="md",
+        id:"md",
         x:x,
         y: y,
         width: ctx.lineWidth,
         color: ctx.strokeStyle
     };
     line.push(pointObj);
+
+    //Socket.emit("mousedown",function(e));
 });
 
 canvas.addEventListener("mousemove",function(e){
-    if(isPenDown){
+    if(isMouseDown){
         let x=e.clientX;
         let y=e.clientY-canvasTop;
 
         ctx.lineTo(x,y);
         ctx.stroke();
         let pointObj={
-            id="md",
+            id:"mm",
             x:x,
             y: y,
             width: ctx.lineWidth,
             color: ctx.strokeStyle
         };
         line.push(pointObj);
+
+        //Socket.emit("mousemove",pointObj);
     }
 });
 
 canvas.addEventListener("mouseup",function(e){
-    isPenDown=false;
+    isMouseDown=false;
     db.push(line);
     line=[];
     console.log(db);
-})
+});

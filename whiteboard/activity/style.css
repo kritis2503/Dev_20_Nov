@@ -40,11 +40,11 @@
 }
 .tool-options{
     position: absolute;
-    height: 151px;
-    width: 166px;
+    height: 120px;
+    width: 150px;
     background: lightblue;
-    top: 69px;
-    left: -57px;
+    top: 71px;
+    left: -38px;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -81,4 +81,37 @@
 }
 .hide{
     display: none;
+}
+.sticky{
+    position: absolute;
+    top: 200px;
+    left: 300px;
+}
+.sticky-header{
+    height: 30px;
+    background: lightsteelblue;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.minimize{
+    height: 20px;
+    width: 20px;
+    background: lightgreen;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+.close{
+    height: 20px;
+    width:20px;
+    background: red;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+}
+#sticky-text{
+    outline: none;
+    border: 1px solid lightgray;
 }
