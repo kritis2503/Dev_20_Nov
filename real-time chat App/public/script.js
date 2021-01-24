@@ -6,6 +6,7 @@ let username=prompt("Enter your Name!");
 console.log(username);
 
 if(username){
+    console.log("username ");
     socket.emit("join",username);
 }
 
