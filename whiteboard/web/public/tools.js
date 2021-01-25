@@ -2,6 +2,8 @@ let pencil=document.querySelector("#pencil");
 let pencilOptions=document.querySelector("#pencil-options");
 let eraser=document.querySelector("#eraser");
 let eraserOptions=document.querySelector("#eraser-options");
+let shape=document.querySelector("#shape");
+let shapeOptions=document.querySelector("#shape-options");
 
 let red=document.querySelector(".red");
 let blue=document.querySelector(".blue");
@@ -61,6 +63,7 @@ pencil.addEventListener("click",function(){
             eraserOptions.classList.add("hide");
         pencil.classList.add("active-tool");
         eraser.classList.remove("active-tool");
+        shape.classList.remove("active-tool");
     }
 });
 
@@ -77,9 +80,26 @@ eraser.addEventListener("click",function(){
             pencilOptions.classList.add("hide");
         eraser.classList.add("active-tool");
         pencil.classList.remove("active-tool");
+        shape.classList.remove("active-tool");
     }
 });
 
+shape.addEventListener("click",function(){
+    if(shape.classList.contains("active-tool")){
+        if(shapeOptions.classList.contains("hide"))
+            shapeOptions.classList.remove("hide");
+        else
+            shapeOptions.classList.add("hide");
+    }else{
+        ctx.strokeStyle="black";
+        ctx.lineWidth=lastPencilSize;
+        if(!shapeOptions.classList.contains("hide"))
+            shapeOptions.classList.add("hide");
+        shape.classList.add("active-tool");
+        pencil.classList.remove("active-tool");
+        eraser.classList.remove("active-tool");
+    }
+})
 
 
 undo.addEventListener("click",function(){
