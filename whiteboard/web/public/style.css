@@ -79,6 +79,83 @@
 .yellow{
     background: yellow;
 }
+#shape-options{
+    position: absolute;
+    height: 123px;
+    width: 233px;
+    background: lightblue;
+    top: 71px;
+    left: -76px;
+    border-radius: 15px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.shape-options-Line-1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.shape-options-Line-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circle{
+    height: 46px;
+    width: 20px;
+    margin: 10px;
+    position: absolute;
+    left: 10px;
+    top: 0px;
+}
+.rectangle{
+    height: 47px;
+    width: 20px;
+    margin: 10px;
+    position: absolute;
+    top: -1px;
+    left: 111px;
+}
+.star{
+    height: 42px;
+    width: 20px;
+    margin: 10px;
+    position: absolute;
+    top: 54px;
+    left: 24px;
+}
+.square{
+    height: 62px;
+    width: 20px;
+    margin: 10px;
+    position: absolute;
+    left: 54px;
+    top: -9px;
+}
+.hexagon{
+    height: 44px;
+    width: 20px;
+    margin: 10px;
+    position: absolute;
+    top: 54px;
+    left: 76px;
+}
+.octagon{
+    height: 42px;
+    width: 20px;
+    margin: 10px;
+    position: absolute;
+    top: 53px;
+    left: 122px;
+}
+.triangle{
+    height: 44px;
+    width: 20px;
+    margin: 10px;
+    position: absolute;
+    top: -6px;
+    left: 168px;
+}
 .hide{
     display: none;
 }
