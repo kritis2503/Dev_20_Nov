@@ -35,7 +35,7 @@ canvas.addEventListener("mousedown",function(e){
     };
     line.push(pointObj);
 
-    //Socket.emit("mousedown",function(e));
+    socket.emit("mousedown",pointObj);
 });
 
 canvas.addEventListener("mousemove",function(e){
@@ -54,7 +54,7 @@ canvas.addEventListener("mousemove",function(e){
         };
         line.push(pointObj);
 
-        //Socket.emit("mousemove",pointObj);
+        socket.emit("mousemove",pointObj);
     }
 });
 

@@ -1,4 +1,4 @@
-Socket.on("md",function(lineObject){
+socket.on("md",function(lineObject){
     let currentStrokeStyle=ctx.strokeStyle;
     let currentPenWidth=ctx.lineWidth;
 
@@ -9,7 +9,7 @@ Socket.on("md",function(lineObject){
     ctx.moveTo(lineObject.x,lineObject.y);
 });
 
-Socket.on("mm",function(lineObject){
+socket.on("mm",function(lineObject){
     let currentStrokeStyle=ctx.strokeStyle;
     let currentPenWidth=ctx.lineWidth;
     ctx.strokeStyle=lineObject.color;
