@@ -99,16 +99,204 @@
     color: white;
     margin-left: 10px;
 }
-.fas{
-    font-size: 31px;
+.picture{
     color: #aca6c1;
 }
-
-
-
-
-
-
-
-
-
+.send-button{
+    color: #aca6c1;
+    margin-right: 9px;
+}
+.fas{
+    font-size: 31px;
+    /* color: #aca6c1; */
+}
+.icon{
+    font-size: 33px;
+    margin-left: 10px;
+    color: #aca6c1;
+}
+.emoji{
+    position: absolute;
+    left: 34px;
+    top: 41px;
+    background: black;
+    border-radius: 18px;
+    border-color: white;
+    align-content: center;
+    justify-content: center;
+}
+.emoji-line-1{
+    display: flex;
+    margin-bottom: -5px;
+    align-items: center;
+    justify-content: center;
+}
+.emoji-line-2{
+    display: flex;
+    margin-bottom: -5px;
+    align-items: center;
+    justify-content: center;
+}
+.emoji-line-3{
+    display: flex;
+    margin-bottom: 5px;
+    align-items: center;
+    justify-content: center;
+}
+.smiley{
+    margin-right: 5px;
+    color: #ffcc4d;
+    margin-left: 5px;
+}
+.laugh{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.angry{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.dizzy{
+    margin-right: 9px;
+    color: #ffcc4d;
+}
+.flushed{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.frown{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.frown-open{
+    margin-right: 5px;
+    color: #ffcc4d;
+} 
+.grimace{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.grin{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.grin-alt{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.grin-beam{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.grim-beam-sweat{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.heart-eyes{
+    margin-right: 5px;
+    color: #ffcc4d;
+    margin-left: 5px;
+}
+.squint{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.tilted-laugh{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.starry-eyes{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.laughing-tears{
+    margin-right: 3px;
+    color: #ffcc4d;
+}
+.out-tongue{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.tongue-squint{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.tongue-wink{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.wink{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.kiss{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.kiss-beam{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.kiss-heart{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.laugh-beam{
+    margin-right: 5px;
+    color: #ffcc4d;
+    margin-left: 5px;
+}
+.laugh-squint{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.meh{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.meh-blank{
+    margin-right: 8px;
+    color: #ffcc4d;
+}
+.rolling-eyes{
+    margin-right: 10px;
+    color: #ffcc4d;
+}
+.sad-cry{
+    margin-right: 5px;
+    color: #ffcc4d;
+} 
+.sad-tear{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.smile-beam{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.smile-wink{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.surprise{
+    margin-right: 5px;
+    color: #ffcc4d;
+}
+.tired{
+    margin-right: 9px;
+    color: #ffcc4d;
+} 
+.heart{
+    margin-right: 5px;
+    color: #ea596e;
+} 
+.hide{
+    display: none;
+}
+.picture{    
+    margin-right: 10px;
+}
+.attachment{
+    color: #aca6c1;
+    margin-right: 9px;   
+}

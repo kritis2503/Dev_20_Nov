@@ -24,11 +24,58 @@
                 </div>
                 <div class="chat-send">
                     <div class="icon">
-                        <i class="far fa-smile"></i>
-                        
+                        <i class="fas fa-smile" id="emoji-icon"></i>
+                        <div class="emoji hide">
+                            <div class="emoji-line-1">
+                                <div class="smiley"><i class="fas fa-smile"></i></div>
+                                <div class="laugh"><i class="fas fa-laugh"></i></div>
+                                <div class="angry"><i class="fas fa-angry"></i></div>
+                                <div class="dizzy"><i class="fas fa-dizzy"></i></div>
+                                <div class="flushed"><i class="fas fa-flushed"></i></div>
+                                <div class="frown"><i class="fas fa-frown"></i></div>
+                                <div class="frown-open"><i class="fas fa-frown-open"></i></div>
+                                <div class="grimace"><i class="fas fa-grimace"></i></div>
+                                <div class="grin"><i class="fas fa-grin"></i></div>
+                                <div class="grin-alt"><i class="fas fa-grin-alt"></i></div>
+                                <div class="grin-beam"><i class="fas fa-grin-beam"></i></div>
+                                <div class="grim-beam-sweat"><i class="fas fa-grin-beam-sweat"></i></div>
+                            </div>
+                            <div class="emoji-line-2">
+                                <div class="heart-eyes"><i class="fas fa-grin-hearts"></i></div>
+                                <div class="squint"><i class="fas fa-grin-squint"></i></div>
+                                <div class="tilted-laugh"><i class="fas fa-grin-squint"></i></div>
+                                <div class="starry-eyes"><i class="fas fa-grin-stars"></i></div>
+                                <div class="laughing-tears"><i class="fas fa-grin-tears"></i></div>
+                                <div class="out-tongue"><i class="fas fa-grin-tongue"></i></div>
+                                <div class="tongue-squint"><i class="fas fa-grin-tongue-squint"></i></div>
+                                <div class="tongue-wink"><i class="fas fa-grin-tongue-wink"></i></div>
+                                <div class="wink"><i class="fas fa-grin-wink"></i></div>
+                                <div class="kiss"><i class="fas fa-kiss"></i></div>
+                                <div class="kiss-beam"><i class="fas fa-kiss-beam"></i></div>
+                                <div class="kiss-heart"><i class="fas fa-kiss-wink-heart"></i></div>                             
+                            </div>
+                            <div class="emoji-line-3">
+                                <div class="laugh-beam"><i class="fas fa-laugh-beam"></i></div>
+                                <div class="laugh-squint"><i class="fas fa-laugh-squint"></i></div>
+                                <div class="meh"><i class="fas fa-meh"></i></div>
+                                <div class="meh-blank"><i class="fas fa-meh-blank"></i></div>
+                                <div class="rolling-eyes"><i class="fas fa-meh-rolling-eyes"></i></div>
+                                <div class="sad-cry"><i class="fas fa-sad-cry"></i></div> 
+                                <div class="sad-tear"><i class="fas fa-sad-tear"></i></div>
+                                <div class="smile-beam"><i class="fas fa-smile-beam"></i></div>
+                                <div class="smile-wink"><i class="fas fa-smile-wink"></i></div>
+                                <div class="surprise"><i class="fas fa-surprise"></i></div>
+                                <div class="tired"><i class="fas fa-tired"></i></div>
+                                <div class="heart"><i class="fas fa-heart"></i></div>                                                                                          
+                            </div>
+                        </div>
                     </div>
                     <input type="text" id="chat-message" placeholder="Type a message!">
                     <!-- <input type="file" id="img" name="img" accept="image/*"> -->
+                    <div class="attachment">
+                        <i class="fas fa-paperclip"></i>
+                        <input type="file" id="att" style="display: none;">
+                    </div>
                     <div class="picture">
                         <i class="fas fa-camera"></i>
                     </div>                
@@ -44,6 +91,7 @@
     const socket=io.connect("http://localhost:3000");
 </script>
 <script src="./script.js"></script>
+<script src="emoji.js"></script>
 <script src="./socket.js"></script>
 </body>
 </html>

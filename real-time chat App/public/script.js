@@ -1,6 +1,9 @@
 let sendButton=document.querySelector(".send-button");
 let chatMessage=document.querySelector("#chat-message");
 let chatList=document.querySelector(".chat-list");
+let attachment=document.querySelector(".attachment");
+let picture=document.querySelector(".picture");
+let attach=document.querySelector("#att");
 
 let username=prompt("Enter your Name!");
 console.log(username);
@@ -23,3 +26,6 @@ sendButton.addEventListener("click",function(){
         socket.emit("chat",message);
     }
 })
+
+
+
