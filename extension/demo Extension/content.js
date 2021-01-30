@@ -1,6 +1,6 @@
 // let images=document.querySelectorAll("img");
 
-let localImages=["./images/meme-template-viral.jpg","./images/meme-template-viral,./images/Zomato-Happy-guy-Viral-Indian-Meme-Templates-From-2020-14.jpg"]
+let localImages=["./images/dd.jpeg","./images/n.jpg","./t.jpeg"];
 
 // for(let i=0;i<images.length;i++){
     // let idx=Math.floor(Math.random()*localImages.length);
