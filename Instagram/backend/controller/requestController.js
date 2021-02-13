@@ -1,18 +1,18 @@
 const followerModel=require("../model/followerModel");
 const followingModel=require("../model/followingModel");
 const userModel = require("../model/userModel");
-const userModel=require("../model/userModel");
+//const userModel=require("../model/userModel");
 
 async function sendRequest(req,res){
     try {
         console.log(req.body);
         let {uid,followId}=req.body;
-        let doc=await userModel.find({_id:followId}).exec();
-        
+        let doc=await userModel.find({_id: followId}).exec();
+        console.log(doc);
         if(doc[0].isPublic){
             await followingModel.create({
                 uid,
-                followId
+                followId,
             });
             await followerModel.create({
                 uid:followId,
@@ -38,9 +38,10 @@ async function sendRequest(req,res){
         })
     }
 }
-
+//NOT WORKING
 async function acceptRequest(req,res){
     try {
+        //console.log(req);
         let {uid,toBeAccepted}=req.body;
         let doc=await followingModel.find({uid:toBeAccepted,followId:uid}).exec();
         console.log(doc);
@@ -91,11 +92,34 @@ async function pendingRequests(req,res){
 }
 
 async function deleteRequest(req,res){
+try {
+    let {uid,followId}=req.body;
+    await followingModel.findOneAndDelete({uid: followId,followId:uid}).exec();
+    res.json({
+        message:"Request succefully deleted !!"
+    });
 
+} catch (error) {
+    res.json({
+        message:"request deletion failed!!",
+        error
+    });
+}
 }
 
 async function cancelRequest(req,res){
-
+try {
+    let {uid,followId}=req.body;
+    await followingModel.findOneAndDelete({uid,followId}).exec();
+    res.json({
+        message:"follow Request Cancelled Successfully!"
+    });
+} catch (error) {
+    res.json({
+        message:"follow request not cancelled!",
+        error
+    })
+}
 }
 
 async function deleteFollowing(req,res){
