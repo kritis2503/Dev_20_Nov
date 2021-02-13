@@ -3,11 +3,17 @@ const userModel=require("../model/userModel");
  async function createUser(req,res){
     try{
         let userObject=req.body;
+        // if(req.file){
+            // let profilePicPath=req.file.destination.substring(6)+"/"+req.file.filename;
+            // userObject.profilePic=profilePicPath;
+            // console.log(userObject);
+        // }
         let userCreated=await userModel.create(userObject);
+        
         res.json({
             message:"Successfully created User!!",
             userCreated
-        })
+        });
     }
     catch(error){
         res.json({
@@ -56,6 +62,10 @@ try {
     for(let key in updateObject){
         user[key]=updateObject[key];
     }
+    // if(req.file){
+        // let profilePicPath=req.file.destination.substring(6)+"/"+req.file.filename;
+        // user.profilePic=profilePicPath;
+    // }
     let updatedUser=await user.save();
     console.log(updatedUser);
     res.json({
@@ -90,3 +100,4 @@ module.exports.getAllUsers=getAllUsers;
 module.exports.getUserById=getUserById;
 module.exports.updateUserById=updateUserById;
 module.exports.deleteUserById=deleteUserById;
+
