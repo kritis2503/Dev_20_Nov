@@ -155,7 +155,7 @@ async function deleteFollower(req,res){
 
 }
 
-async function getAllFollowing(req,res){
+async function getAllFollowing(req,res){        
 
 }
 

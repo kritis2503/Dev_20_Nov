@@ -25,6 +25,7 @@ function parseData(html)
     for(let i=0 ; i<listOfTopics.length ; i++){
         console.log(ch(listOfTopics[i]).text().trim() );
         let link="https://leetcode.com/tag/"+listOfTopics[i]+"/";
-        fetchData(link);
+        //fetchData(link);
+        console.log(link);
     }   
 }
